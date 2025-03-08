@@ -1,0 +1,1469 @@
+************************************************Data Science**********************************************************
+
+Numpy package in array:	NumPy is a fundamental package for scientific computing with Python. 
+						It provides support for arrays, matrices, and a wide range of mathematical functions to operate on these arrays. 
+						NumPy stands for Numerical Python.
+							import numpy as np
+	Functions:
+		Arrays:	A NumPy array is a fundamental data structure in the NumPy library, which is a powerful Python library for numerical computing. NumPy arrays are similar to Python lists, but they provide more efficient storage and operations for numerical data.
+				NumPy arrays are created using the numpy.array() function, and once created, they can be manipulated using various array manipulation functions provided by the NumPy library.
+				a = np.array([1,2,3])
+				
+		arange:	arange function in numpy is same as range function in python.
+				e = np.arange(1, 11)
+				
+		reshape:	It will change the dimension acc. to given values. If not possible it will throw error.
+					f = np.arange(1, 13).reshape(3, 4)
+
+		Ones/ Zeros/ Random:	To initialize the array.
+								g = np.ones((2,3))
+								h = np.zeros((2,3))
+								i = np.random.random((2,3))
+								
+		linspace:	It will create an array of item which are equidistance within the range.
+					j = np.linspace(1, 10, 4) #lower range, upper range, number of items
+					
+		Identity:	Diagonal items are 1 and rest 0
+					k = np.identity(3)
+	Attributes:
+		ndim:	It will show which dimension the array is.
+		shape:	It will show number of rows and columns here.
+		size:	It will show size of array.
+		itemsize:	It will show size/memory of item.
+		dtype:	It will show type of array.
+	
+	Changing Datatype:
+		astype:	If we want to reduce the size of array
+				a.astype(np.int64)
+	
+	Operations:
+		Scalar: We can apply arithmetic operations to this array.
+			a1*2, a1+2....
+		Relational: >, <, ==
+		Vector: when we apply some operation in between two numpy array.
+			a1 + a2
+			
+	Functions:
+		max/ min/ sum/ prod:	np.max(a1), sum/prod will add/multiply all item in array
+		mean/ median/ std/ var:	All statistical operations.
+		axis=0(column) axis=1(row): If we want to apply function on particular row or column. 
+									This applies for all above function.
+									np.max(a1, axis=0)
+		Trigonometric:	sin, cos, tan
+		Dot product:	Multiply first row of a1 to first column of a2 and do sum of it. Same for rest. Output will be first and last value dim of arrays. 
+						3X4 dot 4X3 results 3X3
+						np.dot(a1,a2)
+		Log/ Exponent: np.log(a1) or np.exp(a1)
+		round/ floor/ ceil:	round will round off the value to nearest integer. floor will round off to previous integer. Ceil will round off to next integer.
+	
+	Indexing:	We can access 1 item of an array using index.
+		1D array:	a1[nth position] or a1[-1] for last item
+		2D array:	a2[row, column]
+		3D array:	a3[2DarrayPosition, row, column]
+		
+	Slicing:	We can acces a series of items of an array using Slicing.
+		1D array:	a1[StartPosition: EndPosition(non included)].		e.g.	a1[0,3] = 0,1,2
+		2D array:	a2[row_StartPosition: EndPosition(non included): step, column_StartPosition: EndPosition(non included): step]		e.g.	a2[::2,1::2]
+		3D array:	a3[2DarrayPosition,2D slicing]
+		If we want any entire row or column, we can also write ':'
+		
+	Fancy indexing:	In some case we can't use slicing (for e.g. we need to acces 1,3,4 rows). At that time we use Fancy indexing.
+					We include row/column position that we want.
+					a[[0,2,3]] -> row 0,2,3 will be displayed
+					a[:,[0,2,3]] -> all row, coumn 0,2,3 will be displayed.		
+					
+	Boolean indexing:	This type of indexing is used when we need to implement some arithmetic condition in it. Why we call Boolean : When we implement logic, we get a boolean value and that we mask on actaul array.
+		e.g.	show all numbers greater than 50. ->	a[a > 50]
+				Show all numbers which are even ->	a[a%2 == 0]
+				
+			Whenever we work with boolean value, we always use bitwise operators.
+	
+	Iteration:	We can iterate numpy array items using for loop
+		for i in a1:
+			print(i)	-> this will print each set i,e if 1D then each item. if 2D then each row. if 3D then each 2Darray
+		If need each element:
+			for i in np.nditer(a3):
+				print(i)
+				
+	Transpose:	row-coulmn will change to column-row
+		np.transpose(a2)	or a2.T
+		
+	ravel: It will convert any dimensional array to 1D array
+		a3.ravel()
+		
+	Stacking:	It will join the array horizontal or vertical. Shape should be same!
+		np.hstack((a1,a2)) will join horizontal
+		np.vstack((a1,a2,a3)) will join vertical
+		
+	splitting:	It will split the array h or v. Spliting value should be feasible.
+		np.hsplit(a1,2) will slipt a1 array into 2 array horizontally
+		np.vsplit(a1,3) will slipt a1 array into 3 array Vertically
+		
+		
+	Broadcasting:	The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations.
+					The smaller array is broadcasted across the larger array so that they have compatible shapes.
+		Broadcasting Rules:	
+			1.	Make the two arrays have the same number of dimensions.
+				.	If the number of dimensions of two arrays are different, add a new dimension with size 1 to the head of an array with the smaller dimension.
+			2.	Make each dimension of two arrays the same size.
+				.	If the sizes of each dimension of the two arrays do not match, dimensions with size 1 are stretched to the size of an other array.
+				.	If there is a dimension whose size is not 1 in either of two arrays, it cannot be broadcasted, and it will throw an error.
+
+	Some popular functions:
+		sigmoid function:	It will give you sigmoid value(values between 0 to 1) for an array value. 
+							def sigmoid(array):
+								return 1/(1 + np.exp(-(array)))
+							a = np.arange(12).reshape(3,4)
+							s = sigmoid(a)
+		mean squared error function: 	It will give the avg error made when predicting the actual values of a dataset.
+										def MSE(x, y):
+											return np.mean((x - y)**2)
+											
+	Working with missing value:	In dataset there will some missing values which is denoted by "nan".
+		To add missing value in array: a = np.array[1, 2, 3, 4, np.nan, 6]
+		To remove missing value from array: a[~np.isnan(a)]	-> we have used boolean indexing here.
+		
+	Graph plotting:	we can plot a graph as below:
+													import numpy as np
+													import matplotlib.pyplot as plt
+
+													x = np.linspace(-10, 10, 10)
+													y = x
+
+													plt.plot(x, y)
+
+													plt.show()
+	
+	Some more numpy functions are stored in "D:\Master_Folder\Python\Projects\Trainings\Data Science\Copy of session-15-numpy-tricks.ipynb"
+	
+Pandas:	Pandas is a library. Pandas is a fst, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the python programming language.
+		While importing pandas you should also import numpy. It's a best practice.
+	
+	Series:	A panda series is like a column in a table. It is like a 1-D array holding data of any type. Its has a index and value pair.
+			We can create series using an list or a dict.
+			
+		Series from list:	
+							country = ["India", "USA", "Arab", "Egypt", "UK"]
+							c = pd.Series(country)
+							print(c)    # dtype for strings are refered as object here
+
+							marks = [80, 90, 70, 77, 89, 98]
+							m = pd.Series(marks)
+							print(m)
+
+							# Custom index
+							subject = ["eng", "maths", "science", "history", "hindi", "marathi"]
+							s = pd.Series(marks, index = subject)
+							print(s)
+
+							# Setting a name
+							arbazMarks = pd.Series(marks, index = subject, name = "Arbaz's Marks")
+							print(arbazMarks)
+		Series from dict:
+							# Creating series from dict
+							AKmarks = {
+								"eng": 80,
+								"maths": 90,
+								"hindi": 88
+							}
+							print(pd.Series(AKmarks))
+							
+		Attributes:
+			AKmarks.size will return size of given series.
+			AKmarks.dtype will return the type of data.
+			AKmarks.name will return the name of series.
+			AKmarks.is_unique will return true if all values in series are unique else false.
+			AKmarks.index will give the index of series values.
+			AKmarks.values will give the values of series index.
+			
+		Reading	.csv files:	Pandas also takes inputs from .csv file.
+			subs = pd.read_csv("D:\\Master_Folder\\Python\\Projects\\Trainings\\Data Science\\datasets-session-16\\subs.csv")
+			
+			1	By default read_csv method takes .csv file into dataframe. 
+			2	.csv file can be only converted into series in the below following conditions:
+					.	If .csv has only one column, we can add squeeze=True in read_csv. It will convert into series. This will have index and data column.
+					.	If .csv has two column, we can include index_col = 'Any column name in file' and squeeze=True. This will have first data column as index and 2nd column as values.
+					
+		Series methods:
+			head/ tail:	fetches head(starting) 5(By default) values or same for tail(Ending). We can specify no. of values we want in head(x) or tail(x)
+			sample:	fetches random 1 value from dataset. if you want you can specify no. sample(x)
+			value_counts:	It will count the fequency of each value a dataset has, in decending order.	->	movies.value_counts()
+			sort_values:	It will sort the values in acending order. If you want in decending order-> movies.sort_values(acending=False). If you want to make this change permenant to original array, sort_values(inplace=True)
+			sort_index:	It will sort the index in acending order. If you want in decending order-> movies.sort_index(acending=False). If you want to make this change permenant to original array, sort_index(inplace=True)
+			len: len(subs) will calculate the length.
+			astype:	change the size/ type of data. int64 -> int16
+			between:	It will give you values between specified numbers. 
+			clip:	It will make greater than or less than values equal to specified values.
+			drop_duplicates():	It will delete the second occurance(by default last occurance. if want first occurance 'keep='last'') of any duplicate. movies.drop_duplicate()		movies.duplicate().sum() will give you sum of duplicates.
+			isnull():	it will give you boolean false if null in data set. 
+			dropna: It will drop all null data.
+			fillna(x): will replace all null data with x.
+			isin: will give result for which isin used. match.isin([12]) It will give boolean series
+			apply:	we can use our function in data using movies.apply(lamda x:'good' if x > mean else 'bad)
+			copy():	by this we can create a copy of data.
+			intersect1d(data1,data2): it will give you common of two datasets.
+			setdiff1d(data1,data2): it will give you uncomman data of two datasets.
+			
+		Series math methods:
+			counts:	it will count number of rows in series EXCLUDING missing values. size method includes missing value.
+			sum/ product:	It will sum or product the values.
+			mean/ median/ mode/ std/ var:	It will calculate stats mesures.
+			min/ max: 	it will give the min/max value of series.
+			describe:	it will given you the summary of all math methods like below:
+						count    365.000000
+						mean     135.643836
+						std       62.675023
+						min       33.000000
+						25%       88.000000
+						50%      123.000000
+						75%      177.000000
+						max      396.000000
+		
+		Series indexing:	like python list, numpy, we can do indexing over here like a[1]. Series does not work for negative indexing.
+							Fancy indexing also works here.
+							Using index label.
+
+		Series slicing:	like python list, numpy, we can do slicing over here like a[5:16]. Here negative slicing works!
+		
+		Editing Series:	We can actually edit our series.
+			Using indexing:	marks_series[1] = 100
+			If series does not have that index value: It will add that index and its value.
+			We can also edit multiple indexes using slicing: run[2:4] = [100,20]
+			Using fancy indexing:	run[[1,2,3]] = [44,55,22]
+			Using index label.
+			
+		Type conversion:
+			list(series_name) will print in list format
+			dict(series_name) will print in dict format.
+			
+		membership operator:
+			"index_name" in series or "value_name" in series.values will return true or false.
+			
+		Looping:	for loop works for values here. if you want index then for i in series.index
+		
+		Arithmetic/ relational operations works here. 100 - series/ 100 > series
+		
+	Data Frames: It is a collection of series, where we have multiple sets/columns of data.
+	
+		DataFrame from list: 
+								studentdata = [
+									[100,21,45],
+									[80,100,67],
+									[20,100,30],
+									[56,78,69]
+								]
+
+								pd.DataFrame(studentdata, columns=['IQ','marks','package'])
+								
+		DataFrame from dict:
+								stu_dict = {
+									'IQ': [100,90,87,65],
+									'Marks': [90,89,76,54],
+									'Package': [3,5,6,8]
+								}
+
+								pd.DataFrame(stu_dict)
+								
+		DataFrame using read_csv:
+									movies = pd.read_csv('/content/movies.csv')
+									
+		Attibute/Methods:
+			shape: It will give total number of rows by total number of columns.	movies.shape
+			dtypes: movies.dtypes will give you type of each column.	movies.dtypes
+			index: It will give you index of DataFrame.	movies.index
+			columns: It will give you all column names of dataFrame.	movies.columns
+			values:	 it will give all the values in the form of 2D array.
+			head and tail: Same as series.
+			sample: Same as series. It is helpful when the data is bais or in a particular order. It will fetch randomly 5 values.
+			info:	It will give you a useful information like non-null, dtype, memory usage.
+			describe:	It will show all mathematical operations summary for numerical columns only.
+			isnull:	Same as series.
+			duplicated: It will show boolean True if data is duplicated in rows.
+			rename:	It will rename the column label. if need permenent -> inplace=true		-> movies.rename(columns={'title_x': 'title'}, inplace=True)
+		
+		Math methods: axis =0 or 1
+			sum(): concate if strings and add for numeric.
+			Mean(), median(), mode(), std()
+			
+		Fetching single column: It will be always an series.
+			movies['title_x']
+			
+		Fetching multiple comuns: It will be data frame.
+			movies[['tile_x','actors']]. We can decide order while fetching data.
+	
+		Selecting rows from dataFrame:
+			iloc - searches using index positions.		movies.iloc[1] or movies.iloc[1:5] or movies.iloc[1:5:2] slicing here, fancy indexing here.
+			loc - searches index labels.	movies.loc['xyz'] here if range is given. last value is included.
+			Slecting both rows and columns: movies[0:3,1:2]. first is row second is column.
+		
+		Adding new column:
+			movie['country'] = 'India'
+			
+		Functions:
+			astype: change the given type of Data column.
+			value_counts: It will count the frequency of rows.
+			sort_values(): It will sort values. if descending -> ascending=False. By default NAN values are shown at last. if want at starting -> na_position='first'
+			rank(): It will rank the values. Starts with 1
+			sort_index: will sort according to index.
+			set_index('name'): it will set the index of your choice column.
+			reset_index: it will reset all index to original form. It works on both series and DataFrame. It is also used to convert series into dataframe.
+			rename: Same as series. It's also used to rename index.
+			unique(): It will give all unique values. if more than 1 missing values, it will count 1 missing value.
+			nunique(): Same as unique. It will not count missing values.
+			isnull(): It will give boolean true if missing value.
+			hasnans(): it will give true if missing value or false in one go.
+			dropna(): it any row has one missing value it will drop whole row. if want ot drop rows base on one or two columns -> stu.dropna(subset=['name','college'])
+			fillna('x'): It can fill missing values.
+			drop_duplicates(): Same as series.
+			drop(): it will drop rows or columns. drop(column=['marks','pert']) 	drop(index=['marks','pert'])
+			
+	Groupby: 	Function used for splitting the data into groups based on some criteria, applying a function to each group independently, and then combining the results back into a DataFrame or Series.		
+				grouped = players.groupby('Team')		-> then we can perform any function on group
+				average_score = grouped['Score'].mean() 
+				
+		len():	can calculatehow many groups. len(players.groupby('Team'))
+		size():	how many rows in groups.  players.groupby('Team').size()
+		first(): it will give you first value of every group.  players.groupby('Team').first()
+		last(): it will give you last value of every group.  players.groupby('Team').last()
+		nth(x): it will give you x value of every group.  players.groupby('Team').nth(6)		starts from 0.
+		get_group(): we can get rows of any group using this inside groupby.
+		
+		agg method: It is a useful method if we have multiple column and we need to perform column specific numeric methods.
+					players.groupby('Team').agg(
+											{
+												'column1': 'min',
+												'column2': 'max',
+												'column3': 'mean',
+												'column4': 'sum',
+												'column5': 'sum'
+											}
+										)
+					If you need multiple numeric operation for every column:
+					players.groupby('Team').agg(['min','max','mean']) it will perform operations for every column.
+					Also we can merge above two methods in one ->
+						agg(
+								{
+									'column1': ['min','max'],
+									'column2': 'max',
+									'column3': ['min','mean],.....
+	
+	Merging: we can join two dataset files.
+			pd.concat():	Through this we can add multiple dataset.
+				pd.concat([data1,data2],ignore_index=True) ignore_index: by default index of two dataset retains themselfs, to update is we use ignore_index keyword.
+				Previously there used to be one more function pd.append() which has same functionality but its no more used.
+				pd.concat([nov,dec],keys= ['nov', 'dec']): keys are used to define index manually.
+			Concating horizontally: pd.concat([nov,dec], axis=1)  -> by this it will add NaN to dataset which has less data than other one.
+		Joins:
+			inner join: This will merge the datasets base on the common column and will only show those rows which have data in both database. Default join is inner join
+				students.merge(regs, how= 'inner', on='student_id')
+			left join: it will show data base on left database rows. If data doesn't found in right databse, it will print NaN.
+				courses.merge(regs,how='left',on='course_id')
+			right join: Same as left but will show data of right.
+				courses.merge(regs,how='right',on='course_id')
+			Outer join: This join will show all data as of inner,left and right. if any value missing, will show NAN
+			self join: This is a variant of inner join where a dataset is joined by same dataset.
+				students.merge(students, how='inner', left_on='partner', right_on='student_id')[['name_x','name_y']]
+		Alternate syntax for merge:
+			pd.merge(students,regs, on='student_id') here first dataset is left and sencond is right.
+	
+	Multiindexing(Hierarchical Indexing):
+		In some datasets there are domain specific datas for which we need to organize it and do analysis.
+		Multi-indexing is done for both series and data frames. There can be 2D series and multi dimension dataset using multiindexing.
+		We can create multiindex object in two types:
+		# 1. pd.MultiIndex.from_tuples()
+			index_val = [('cse',2019),('cse',2020),('cse',2021),('cse',2022),('ece',2019),('ece',2020),('ece',2021),('ece',2022)]
+			multiindex = pd.MultiIndex.from_tuples(index_val)
+			s = pd.Series([1,2,3,4,5,6,7,8],index=multiindex)
+		# 2. pd.MultiIndex.from_product()
+			pd.MultiIndex.from_product([['cse','ece'],[2019,2020,2021,2022]])
+		swaplevel(): this function is used to swap the levels. default is for row. If you need for column : axis=1
+		Stacking/ Unstacking: 
+			In pandas, stacking and unstacking are operations used to manipulate the hierarchical structure of MultiIndex DataFrames.
+			Stacking turns columns into rows, and unstacking turns rows into columns. 
+			Stacking: Stacking pivots the lowest level of column labels to become the innermost level of row labels, effectively "stacking" the DataFrame. 
+			Unstacking: Unstacking performs the opposite operation of stacking. It pivots the innermost level of row labels to become the lowest level of column labels, effectively "unstacking" the DataFrame.
+	Two way of representing datasets:
+		Wide format is where we have a single row for every data point with multiple columns to hold the values of various attributes.
+		Long format is where, for each data point we have as many rows as the number of attributes and each row contains the value of a particular attribute for a given data point.
+		.melt(): this function is used to convert wide dataframe into long dataframes.
+	
+	Pivot Table:
+		A pivot table in pandas is a powerful feature that allows you to summarize and analyze data in tabular form. It essentially reshapes and organizes data by aggregating and summarizing information from a DataFrame. Here's how it works:
+		1. **Input Data**: You start with a DataFrame containing your raw data.
+		2. **Grouping**: You specify one or more columns to be used as row and column indexes for the pivot table. These are the variables you want to group or categorize your data by.
+		3. **Aggregation**: You specify one or more columns to be used as the values to aggregate. Typically, these are numerical columns that you want to perform some calculation on, like sum, mean, count, etc.
+		4. **Transformation**: Optionally, you can apply additional transformations or calculations to the aggregated values.
+		5. **Output**: Pandas generates a new DataFrame with the summarized data, where rows represent unique combinations of the row indexes, columns represent unique combinations of the column indexes, and the values are the aggregated results.
+		Pivot tables are incredibly useful for exploring and summarizing large datasets, especially when you want to quickly analyze patterns or relationships between different variables. They provide a flexible and efficient way to perform complex data analysis tasks.
+			df.pivot_table(index='month',columns='Category',values='INR',aggfunc='sum',fill_value=0)			
+	
+	Vectorized operations: vectorized means some kind of operation done to a list of strings. In basic python there is an issue for doing vectorized operations in list of strings like below:
+		# problem in vectorized opertions in vanilla python
+			s = ['cat','mat',None,'rat']
+			[i.startswith('c') for i in s]		-> Here we get error of ''NoneType' object has no attribute 'startswith''.
+		So, in pandas to overcome this type of issue in databases, we have vectorized strings.
+		we can perform all operations of strings in pandas using an add-on(string accessor) i.e .str.
+			s = pd.Series(['cat','mat',None,'rat'])
+			# string accessor
+			s.str.startswith('c')
+		# Common Functions
+			# lower/upper/capitalize/title
+				df['Name'].str.upper()
+				df['Name'].str.capitalize()
+				df['Name'].str.title()
+			# len
+				df['Name'][df['Name'].str.len() == 82].values[0]
+			# strip
+				"                   nitish                              ".strip()
+				df['Name'].str.strip()	
+			# split -> get
+				df['lastname'] = df['Name'].str.split(',').str.get(0)
+			# replace
+				df['title'] = df['title'].str.replace('Ms.','Miss.')
+		# filtering
+			# startswith/endswith
+				df[df['firstname'].str.endswith('A')]
+			# isdigit/isalpha...
+				df[df['firstname'].str.isdigit()]
+		# applying regex
+		# contains
+		# search john -> both case
+			df[df['firstname'].str.contains('john',case=False)]
+		# find lastnames with start and end char vowel
+			df[df['lastname'].str.contains('^[^aeiouAEIOU].+[^aeiouAEIOU]$')]
+		# slicing
+			df['Name'].str[::-1]	
+			
+	Date/ time:
+		We can fetch data time using both python inbuild and pandas objects.
+		Python object: 
+				import datetime as dt
+				dt.datetime(2023,1,5,9,21,56)
+		Pandas object:
+				import pandas as pd
+				pd.Timestamp('2023/1/5')
+		Difference between above two objects:
+			syntax wise datetime is very convenient
+			But the performance takes a hit while working with huge data. List vs Numpy Array
+			The weaknesses of Python's datetime format inspired the NumPy team to add a set of native time series data type to NumPy.
+			The datetime64 dtype encodes dates as 64-bit integers, and thus allows arrays of dates to be represented very compactly.
+			Because of the uniform type in NumPy datetime64 arrays, this type of operation can be accomplished much more quickly than if we were working directly with Python's datetime objects, especially as arrays get large
+			Pandas Timestamp object combines the ease-of-use of python datetime with the efficient storage and vectorized interface of numpy.datetime64
+			From a group of these Timestamp objects, Pandas can construct a DatetimeIndex that can be used to index data in a Series or DataFrame
+		DatetimeIndex Object:	A collection of pandas timestamp
+			# from strings
+				pd.DatetimeIndex(['2023/1/1','2022/1/1','2021/1/1'])
+			# using python datetime object
+				pd.DatetimeIndex([dt.datetime(2023,1,1),dt.datetime(2022,1,1),dt.datetime(2021,1,1)])
+			# using pd.timestamps
+				dt_index = pd.DatetimeIndex([pd.Timestamp(2023,1,1),pd.Timestamp(2022,1,1),pd.Timestamp(2021,1,1)])	
+			# using datatimeindex as series index
+				pd.Series([1,2,3],index=dt_index)	
+		date_range function:
+			# generate daily dates in a given range
+				pd.date_range(start='2023/1/5',end='2023/2/28',freq='D')
+			# alternate days in a given range
+				pd.date_range(start='2023/1/5',end='2023/2/28',freq='3D')
+			# B -> business days
+				pd.date_range(start='2023/1/5',end='2023/2/28',freq='B')
+			# W -> one week per day
+				pd.date_range(start='2023/1/5',end='2023/2/28',freq='W-THU')
+			# H -> Hourly data(factor)
+				pd.date_range(start='2023/1/5',end='2023/2/28',freq='6H')
+			# M -> Month end
+				pd.date_range(start='2023/1/5',end='2023/2/28',freq='M')
+			# MS -> Month start
+				pd.date_range(start='2023/1/5',end='2023/2/28',freq='MS')
+			# A -> Year end
+				pd.date_range(start='2023/1/5',end='2030/2/28',freq='A')
+			# using periods(number of results)
+				pd.date_range(start='2023/1/5',periods=25,freq='M')
+		(IMP)to_datetime function:	converts an existing objects to pandas timestamp/datetimeindex object
+			# simple series example
+				s = pd.Series(['2023/1/1','2022/1/1','2021/1/1'])
+				pd.to_datetime(s).dt.day_name()
+			# with errors
+				s = pd.Series(['2023/1/1','2022/1/1','2021/130/1'])
+				pd.to_datetime(s,errors='coerce').dt.month_name()
+		dt accessor:	Accessor object for datetimelike properties of the Series values.
+			df['Date'].dt.is_quarter_start
+			
+Matplotlib:	Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python. It is widely used for generating plots, histograms, power spectra, bar charts, error charts, scatterplots, and more.
+			We can plot multiple graphs through matplotlib library.
+				import matplotlib.pyplot as plt
+				
+			Basically there are two types of datas:
+				Numerical data
+				Categorical Data
+				
+		common functions:
+			title:	To provide name of graph	-> plt.title('Rohit Sharma Vs Virat Kohli Career Comparison')
+			label:	To provide labels for x and y axis 	-> plt.xlabel('Season') plt.ylabel('Runs Scored')
+			marker: pattern of the points on which line connects	-> plt.plot(batsman['index'],batsman['V Kohli'],color='#D9F10F',linestyle='solid',linewidth=3,marker='D',markersize=10)
+			color: To provide color as per your choice 	-> plt.plot(batsman['index'],batsman['V Kohli'],color='#D9F10F')
+			legend: To provide small description(like which line refers to which data column)	->	plt.legend(loc='upper right') If empty brackets, by default it will place in best area.
+			limiting axes: if data is too big and in graphs smaller data is not visible we use limiting	-> plt.ylim(0,75000) plt.xlim(2017,2019)
+			grid: grids will be visible in graphs 	-> plt.grid()
+			show: It will show graph 	-> 	plt.show()
+			Horizontal and Vertical lines: can draw lines in graph 	-> plt.axhline(130,color='red') for horizontal and plt.axvline(30,color='red') for vertical
+			
+			We can change the styles of the charts by plt.style.use('xyz') for xyz yoou can find in plt.style.available
+
+			To save figure -> plt.savefig('sample.png') ...Remember above this there should not be plt.show() o.w it will erase all info of plt and save blank figure.
+			
+		2D Line Plot:		
+			Bivariate Analysis
+			categorical -> numerical and numerical -> numerical
+			Use case - Time series data
+			e.g. plt.plot(batsman['index'],batsman['V Kohli'])
+			# plotting multiple plots: just write one below the another
+				plt.plot(batsman['index'],batsman['V Kohli'])
+				plt.plot(batsman['index'],batsman['RG Sharma'])
+			Specific functions:
+				linestyle: pattern of line	-> plt.plot(batsman['index'],batsman['V Kohli'],color='#D9F10F',linestyle='solid',linewidth=3)
+			
+		Scatter Plots:
+			Bivariate Analysis
+			numerical vs numerical
+			Use case - Finding correlation
+			e.g. 	plt.scatter(df['avg'],df['strike_rate'],color='red',marker='+')
+			Specific functions:
+				size: will determine the size of markers 	-> plt.scatter(tips['total_bill'],tips['tip'],s=tips['size']*20)
+				color: we can add color base on specific value or whole column.	-> plt.scatter(iris['SepalLengthCm'],iris['PetalLengthCm'],c=iris['Species'],cmap='jet',alpha=0.7)
+				cmap: is the themes of color 
+				alpha: is the opacity of color.
+				Annotation: to give label of point. -> plt.text(x-axis pt,y-axis pt,'Point 1')
+					plt.text(4,8,'Point 4',fontdict={'size':12,'color':'brown'})
+			We can also draw scatter graphs using plt.plot. In big data set its faster.
+				plt.plot(tips['total_bill'],tips['tip'],'o')
+				
+		Bar chart:
+			Bivariate Analysis
+			Numerical vs Categorical
+			Use case - Aggregate analysis of groups
+			e.g.	plt.bar(colors,children,color='black')
+			Horizontal bar chart:
+				plt.barh(colors,children,color='black')
+			Specific functions:
+				width: Can determine width.
+				xticks: to provide names of the columns
+			To show multi bar chart, it's tricky! we have to do some R&D to get perfect size for each column
+				e.g. 
+					plt.bar(np.arange(df.shape[0]) - 0.2,df['2015'],width=0.2,color='yellow')
+					plt.bar(np.arange(df.shape[0]),df['2016'],width=0.2,color='red')
+					plt.bar(np.arange(df.shape[0]) + 0.2,df['2017'],width=0.2,color='blue')
+						plt.xticks(np.arange(df.shape[0]), df['batsman'])
+						plt.xticks(rotation='vertical')
+						
+			Stacked Bar chart: Bars one above the another
+			e.g.
+				plt.bar(df['batsman'],df['2017'],label='2017')
+				plt.bar(df['batsman'],df['2016'],bottom=df['2017'],label='2016')
+				plt.bar(df['batsman'],df['2015'],bottom=(df['2016'] + df['2017']),label='2015')
+
+		Histogram:
+			Univariate Analysis
+			Numerical col
+			Use case - Frequency Count
+			e.g.	data = [32,45,56,10,15,27,61]
+					plt.hist(data,bins=[10,25,40,55,70])
+			Specific functions:
+				# logarithmic scale: linear scale is like 1 to 100 is same as 100-200 is same as 200-300. but logarithmic scale is like 1 to 10 is same as 10 to 100 is same as 100 to 1000 is same as 1000 to 10000.
+					plt.hist(arr,bins=[10,20,30,40,50,60,70],log=True)
+
+		Pie Chart:
+			Univariate/Bivariate Analysis
+			Categorical vs numerical
+			Use case - To find contibution on a standard scale
+				e.g. 	data = [23,45,100,20,49]
+						subjects = ['eng','science','maths','sst','hindi']
+						plt.pie(data,labels=subjects)
+						plt.show()
+			Specific functions:
+				To show in percentage: plt.pie(df['batsman_runs'],labels=df['batsman'],autopct='%0.1f%%')
+				To spotlight one pie slice: 	plt.pie(df['batsman_runs'],labels=df['batsman'],autopct='%0.1f%%',explode=[0.3,0,0,0,0,0.1],shadow=True)
+		
+		subplots: A different way to plot graph.
+			graph is the combination of two objects which is figure obj and axis obj.
+			This can be denoted as below:
+				fig,ax = plt.subplots()
+				ax.scatter(batters['avg'],batters['strike_rate'],color='red',marker='+')
+				ax.set_title('Something')
+				ax.set_xlabel('Avg')
+				ax.set_ylabel('Strike Rate')
+				fig.show()
+				
+			Through above we can plot multiplots in one graph.
+				Below e.g is of 2 isto 1 i.e 2 rows and 1 column i.e we can plot upto 2 graph.
+					fig, ax = plt.subplots(nrows=2,ncols=1,sharex=True,figsize=(10,6))
+
+					ax[0].scatter(batters['avg'],batters['strike_rate'],color='red')
+					ax[1].scatter(batters['avg'],batters['runs'])
+
+					ax[0].set_title('Avg Vs Strike Rate')
+					ax[0].set_ylabel('Strike Rate')
+
+
+					ax[1].set_title('Avg Vs Runs')
+					ax[1].set_ylabel('Runs')
+					ax[1].set_xlabel('Avg')
+				sharex=True means both graph will use same x axis.
+				Below e.g is of 2 isto 2 i.e we can plot upto 4 graphs.
+					fig, ax = plt.subplots(nrows=2,ncols=2,figsize=(10,10))
+
+					ax[0,0].
+					ax[0,1].scatter(batters['avg'],batters['runs'])
+					ax[1,0].hist(batters['avg'])
+					ax[1,1].hist(batters['runs'])
+			One more way: 
+				fig = plt.figure()
+
+				ax1 = fig.add_subplot(2,2,1)
+				ax1.scatter(batters['avg'],batters['strike_rate'],color='red')
+
+				ax2 = fig.add_subplot(2,2,2)
+				ax2.hist(batters['runs'])
+
+				ax3 = fig.add_subplot(2,2,3)
+				ax3.hist(batters['avg'])
+			
+		3D scatter plots:
+			fig = plt.figure()
+			ax = plt.subplot(projection='3d')
+			ax.scatter3D(batters['runs'],batters['avg'],batters['strike_rate'],marker='+')
+			
+		3D line plots:
+			x = [0,1,5,25]
+			y = [0,10,13,0]
+			z = [0,13,20,9]
+			fig = plt.figure()
+			ax = plt.subplot(projection='3d')
+			ax.plot3D(x,y,z,color='red')
+			
+		3D Surface plot:
+			x = np.linspace(-10,10,100)
+			y = np.linspace(-10,10,100)
+			xx, yy = np.meshgrid(x,y)
+			z = xx**2 + yy**2
+			z.shape
+			fig = plt.figure(figsize=(12,8))
+			ax = plt.subplot(projection='3d')
+			p = ax.plot_surface(xx,yy,z,cmap='viridis')
+			fig.colorbar(p)
+			
+			colorbar: colorbar is like a index in graph
+			
+		Contour Plots:
+			p = ax.contour(xx,yy,z,cmap='viridis')
+			fig.colorbar(p)
+		if you need color:
+			p = ax.contourf(xx,yy,z,cmap='viridis')
+			
+Pandas Plot(): pandas plot is more simpler and abstractive than matplotlib
+				If you know the data if that will be only Series or dataframe then you can use pandas plot. If you are unsure then you can use matplotlib.
+				Pandas plot() function only works with Series/Dataframe whereas matplotlib can be use anywhere.
+				howvever pandas plot() is faster and easy to write.
+				# on a series
+					s = pd.Series([1,2,3,4,5,6,7])
+					s.plot(kind='pie')
+				# Scatter plot -> labels -> markers -> figsize -> color -> cmap
+					tips.plot(kind='scatter',x='total_bill',y='tip',title='Cost Analysis',marker='+',figsize=(10,6),s='size',c='sex',cmap='viridis') 
+				# line plot
+					stocks['MSFT'].plot(kind='line')
+				# bar chart -> single -> horizontal -> multiple
+					temp.plot(kind='bar') -> this will create multibar plot. Only by not adding any column name we can acheive it.
+					tips.groupby('sex')['total_bill'].mean().plot(kind='bar')
+				# stacked bar chart
+					temp.plot(kind='bar',stacked=True)
+				# histogram
+					stocks[['MSFT','FB']].plot(kind='hist',bins=40)
+				# pie -> single 
+					df['match1'].plot(kind='pie',labels=df['batsman'].values,autopct='%0.1f%%')
+				# multiple pie charts
+					df[['match1','match2','match3']].plot(kind='pie',subplots=True,figsize=(15,8))
+				# multiple separate graphs together
+					stocks.plot(kind='line',subplots=True)
+					
+Plotly: Plotly is the another library used to creative interactive graphs and charts. It provides a wide range of visualization tools for creating interactive plots, dashboards, and web applications. Plotly supports various types of charts, including scatter plots, line plots, bar charts, pie charts, heatmaps, 3D plots, and more.
+		Plotly can be used in standalone Python scripts, as well as in Jupyter notebooks, Dash applications, and other web frameworks. It supports integration with popular data manipulation libraries like Pandas, NumPy, and others, making it easy to visualize data from various sources.
+		Plotly specializes in creating interactive plots with features like zooming, panning, hovering to see data points, and toggling between different views directly within the plot. Matplotlib, on the other hand, primarily generates static plots, although it does offer some limited interactivity through plugins like mplcursors or widgets.
+		Matplotlib primarily generates static images (e.g., PNG, PDF) that can be easily exported or embedded in documents. Plotly, on the other hand, can generate interactive HTML plots that can be shared online or embedded in web applications. Plotly also provides support for exporting plots to static image formats.
+		Plotly is not developed using Matplotlib. Plotly is an independent library developed primarily in JavaScript, with Python bindings provided through the plotly Python package. While Plotly and Matplotlib are both used for creating visualizations in Python, they are separate and distinct libraries with different underlying architectures.
+		
+		Scatter plot:
+			trace = go.Scatter(x = avg['avg'], y = avg['batsman_runs'], mode = 'markers', text = avg['batsman'], marker = {'color':'#00a65a','size':16})
+			data = [trace]
+			layout = go.Layout(title='Batsman Avg vs SR', xaxis = {'title':'batsman Avg'}, yaxis = {'title':'batsman SR'})
+			fig = go.Figure(data=data, layout=layout)
+			pyo.plot(fig, filename='Myfile.html')
+			
+		Line plot:
+			trace = go.Scatter(x=performance['season'], y=performance['batsman_runs'], mode='lines', marker={'color':'#00a65a'})   # Additional mode available i.e mode='lines+Markers'
+			data=[trace]
+			layout=go.Layout(title='Year by Year Performance', xaxis={'title':'season'}, yaxis={'title':'total runs'})
+			fig=go.Figure(data=data,layout=layout)
+			pyo.plot(fig)
+			
+			# multiple Line chart
+
+			trace1 = go.Scatter(x=performance['season'], y=performance['batsman_runs'], mode='lines', name='V Kohli', marker={'color':'#00a65a'})   
+			trace2 = go.Scatter(x=performance1['season'], y=performance1['batsman_runs'], mode='lines', name='MS Dhoni')  
+			data=[trace1, trace2]
+			layout=go.Layout(title='Year by Year Performance', xaxis={'title':'season'}, yaxis={'title':'total runs'})
+			fig=go.Figure(data=data,layout=layout)
+			pyo.plot(fig)
+			
+			# Multiple line chart using funtion
+
+			def multipleLineChart(*name):
+				data = []
+				for i in name:
+					single = ipl[ipl['batsman'] == i]
+					performance = single.groupby('season')['batsman_runs'].sum().reset_index()
+					trace = go.Scatter(x = performance['season'], y = performance['batsman_runs'], mode = 'lines+markers', name = i)
+					data.append(trace)
+				layout = go.Layout(title='Year by Year Performance', xaxis={'title':'season'}, yaxis={'title':'total runs'})
+				fig = go.Figure(data = data, layout = layout)
+				pyo.plot(fig)
+			
+		Bar plot:
+			trace = go.Bar(x = top10_score['batsman'],
+							y = top10_score['batsman_runs'])
+			data = [trace]
+			layout = go.Layout(title = 'Batsman VS Total runs',
+							  xaxis = {'title': 'Batsman'},
+							  yaxis = {'title': 'Total Runs'})
+			fig = go.Figure(data = data, layout = layout)
+			pyo.plot(fig)
+			
+			#for multiple bar
+				layout = go.Layout(title = 'Batsman VS Total runs',
+							  xaxis = {'title': 'Batsman'},
+							  yaxis = {'title': 'Total Runs'},
+							  barmode = 'overlay') # another options are barmode = 'stack', by defualt it will be nested.
+							  
+Seaborn:	It provides a level of abstraction. So it's easy to use as it simplifies the code.
+			Better visuals of graphs., Also more graphs are included.
+			
+			There are two types of functions in seaborn:
+				figure level function	: The container in which graph is called as figure level.
+				Axis level function	: the area inside x and y-axis is called as axis level.
+					In single figure we can have multiple axis objects. i.e 1 fig obj and multiple axes obj.
+					
+				differences between figure and axis level graphs:
+					axes	->	Rectangle graph str,	Legends are inside x, y-axis,	No Facet plots,	
+					figure	->	Square graph str,		Legends are outside x, y-axis,	Facet plots,
+					
+			import seaborn as sns
+				
+			1. Relational Plot:
+				to see the statistical relation between 2 or more variables.
+				Bivariate Analysis
+				
+				Plots under this section:
+					scatterplot
+					lineplot
+					
+				# figure level -> relplot
+				# axes level -> scatterplot -> lineplot				
+					
+				Scatterplot:
+					# Scatter plot -> axes level function
+						sns.scatterplot(data=tips, x='total_bill', y='tip')
+						
+					#  relplot -> figure level function.
+						sns.relplot(data=tips, x='total_bill', y='tip', kind='scatter')
+						
+					# additional parameters
+						sns.relplot(data=tips, x='total_bill', y='tip', kind='scatter', hue='sex', style='time', size='size')
+						
+				lineplot:
+					# Axes level
+						sns.lineplot(data=temp, x='year', y='lifeExp')
+					# figure level
+						sns.relplot(data=temp, x='year', y='lifeExp', kind='line')
+					# multi line graph with additional parameters
+						tempdf = gap[gap['country'].isin(['India', 'Germany', 'Zimbabwe'])]
+						sns.relplot(data=tempdf, x='year', y='lifeExp', kind='line', hue='country')
+						
+				# Facet plot -> multiple graphs inside figure using 'col','row' -> It works only with relplot
+					sns.relplot(data=tips, x='total_bill', y='tip', kind='scatter', col='sex', row='time', col_wrap=3) col_wrap is basically graph shown one below another base on wrap.
+			
+			2. Distribution Plots
+				used for univariate analysis
+				used to find out the distribution
+				Range of the observation
+				Central Tendency
+				is the data bimodal?
+				Are there outliers?
+				
+				Plots under distribution plot:
+
+					histplot
+					kdeplot
+					rugplot
+					
+				# figure level -> displot
+				# axes level -> histplot -> kdeplot -> rugplot
+					
+				Histplot:
+					# Axes level
+						sns.histplot(data=tips, x='total_bill')
+					# figure level
+						sns.displot(data=tips, x='total_bill', kind='hist')
+						# bins parameter
+							sns.displot(data=tips, x='total_bill', kind='hist',bins=2)
+					# It’s also possible to visualize the distribution of a categorical variable using the logic of a histogram. 
+					# Discrete bins are automatically set for categorical variables
+					sns.displot(data=tips, x='day', kind='hist') -> conventionally it should be called as countplot
+					
+					# element -> step  -> it will show the two data clearly in histplot
+						sns.displot(data=tips, x='tip', kind='hist',hue='sex',element='step')
+						
+					# faceting using col and row -> not work on histplot function
+						sns.displot(data=tips, x='tip', kind='hist',col='sex',element='step')
+						
+				Kdeplot:
+					Rather than using discrete bins, a KDE plot smooths the observations with a Gaussian kernel, producing a continuous density estimate
+					
+					# Axes level
+						sns.kdeplot(data=tips,x='total_bill')
+						
+					# figure level	
+						sns.displot(data=tips,x='total_bill',kind='kde')
+						
+					# hue -> fill
+						sns.displot(data=tips,x='total_bill',kind='kde',hue='sex',fill=True,height=10,aspect=2)
+						
+				Rugplot:
+					# Plot marginal distributions by drawing ticks along the x and y axes.
+					# This function is intended to complement other plots by showing the location of individual observations in an unobtrusive way.
+						sns.kdeplot(data=tips,x='total_bill')
+						sns.rugplot(data=tips,x='total_bill')
+						
+				# Bivariate histogram
+					# A bivariate histogram bins the data within rectangles that tile the plot 
+					# and then shows the count of observations within each rectangle with the fill color
+					# sns.histplot(data=tips, x='total_bill', y='tip')
+					sns.displot(data=tips, x='total_bill', y='tip',kind='hist')
+					
+				# Bivariate Kdeplot
+					# a bivariate KDE plot smoothes the (x, y) observations with a 2D Gaussian
+					sns.kdeplot(data=tips, x='total_bill', y='tip')
+					
+			3. Matrix Plot
+				Heatmap
+				Clustermap
+				
+				# Heatmap:
+					# Plot rectangular data as a color-encoded matrix
+					temp_df = gap.pivot(index='country',columns='year',values='lifeExp')
+					# axes level function
+					plt.figure(figsize=(15,15))
+					sns.heatmap(temp_df)
+					
+					sns.heatmap(temp_df,annot=True,linewidth=0.5, cmap='summer') annot will give you the values.
+					
+				# Clustermap
+					# Plot a matrix dataset as a hierarchically-clustered heatmap.
+					# This function requires scipy to be available.
+						iris = px.data.iris()
+						iris
+						sns.clustermap(iris.iloc[:,[0,1,2,3]])
+						
+			4. Categorical Plot:
+			
+				Categorical Scatter Plot: ! axis is numerical and other is categorical.
+					Stripplot
+					Swarmplot
+				Categorical Distribution Plots:
+					Boxplot
+					Violinplot
+				Categorical Estimate Plot -> for central tendency
+					Barplot
+					Pointplot
+					Countplot
+				
+				Figure level function -> catplot
+				
+				# Stripplot:
+					# axes level function
+						sns.stripplot(data=tips,x='day',y='total_bill')
+						
+					# figure level function
+						sns.catplot(data=tips, x='day',y='total_bill',kind='strip')
+						
+					# jitter -> provides some width to categories. By default it jitter=True. if you need to show in single line -> jitter=False
+						sns.catplot(data=tips, x='day',y='total_bill',kind='strip',jitter=0.2,hue='sex')
+						
+				# swarmplot:
+					# Axes level function
+						sns.swarmplot(data=tips, x='day',y='total_bill')
+						
+					#figure level function
+						sns.catplot(data=tips, x='day',y='total_bill',kind='swarm')
+						
+				# Box plot:
+					A boxplot is a standardized way of displaying the distribution of data based on a five number summary (“minimum”, first quartile [Q1], median, third quartile [Q3] and “maximum”). 
+					It can tell you about your outliers and what their values are. 
+					Boxplots can also tell you if your data is symmetrical, how tightly your data is grouped and if and how your data is skewed.
+						
+					# Axes level function
+						sns.boxplot(data=tips,x='day',y='total_bill')
+						
+					#figure level function
+						sns.catplot(data=tips,x='day',y='total_bill',kind='box')
+						
+					# single boxplot -> numerical col
+						sns.boxplot(data=tips,y='total_bill')
+						
+				# Violinplot = (Boxplot + KDEplot)
+					# Axes level function
+						sns.violinplot(data=tips,x='day',y='total_bill')
+					#figure level function
+						sns.catplot(data=tips,x='day',y='total_bill',kind='violin')
+					#Split between two groups	
+						sns.catplot(data=tips,x='day',y='total_bill',kind='violin',hue='sex',split=True)
+						
+				# Bar plot
+					sns.barplot(data=tips, x='sex', y='total_bill',hue='smoker',estimator=np.min)
+					sns.barplot(data=tips, x='sex', y='total_bill',ci=None)
+					
+				# point plot -> When there are multiple observations in each category, it also uses bootstrapping to compute a confidence interval around the estimate, which is plotted using error bars
+					sns.pointplot(data=tips, x='sex', y='total_bill',hue='smoker',ci=None)
+					
+				# countplot -> A special case for the bar plot is when you want to show the number of observations in each category rather than computing a statistic for a second variable. This is similar to a histogram over a categorical, rather than quantitative, variable
+					sns.countplot(data=tips,x='sex',hue='day')
+					
+				# faceting using catplot
+					sns.catplot(data=tips, x='sex',y='total_bill',col='smoker',kind='box',row='time')
+			
+			5. Regression Plot
+				
+				Axes level function: regplot
+				Figure level function: lmplot
+				
+				In the simplest invocation, both functions draw a scatterplot of two variables, x and y, and then fit the regression model y ~ x and plot the resulting regression line and a 95% confidence interval for that regression.
+				
+				# axes level
+				# hue parameter is not available
+					sns.regplot(data=tips,x='total_bill',y='tip')
+					
+				#figure level
+					sns.lmplot(data=tips,x='total_bill',y='tip',hue='sex')
+					
+				# residplot  -> it provides the graphical view of error done by regplot/Lmplot
+					sns.residplot(data=tips,x='total_bill',y='tip')
+					
+			A second way to plot Facet plots -> FacetGrid
+				g = sns.FacetGrid(data=tips,col='day',row='time',hue='smoker')
+				g.map(sns.boxplot,'tips','total_bill')
+				g.add_legend()
+				
+			Plotting Pairwise Relationship (PairGrid Vs Pairplot)
+				
+				# Pair plot -> it will form a column X column grid 
+					sns.pairplot(iris,hue='species')
+					
+				# pair grid
+					g = sns.PairGrid(data=iris,hue='species')
+					# g.map
+					g.map(sns.scatterplot)
+					
+				# map_diag -> map_offdiag
+					g = sns.PairGrid(data=iris,hue='species')
+					g.map_diag(sns.boxplot)
+					g.map_offdiag(sns.kdeplot)
+					
+				# map_diag -> map_upper -> map_lower
+					g = sns.PairGrid(data=iris,hue='species')
+					g.map_diag(sns.histplot)
+					g.map_upper(sns.kdeplot)
+					g.map_lower(sns.scatterplot)
+					
+				# vars
+					g = sns.PairGrid(data=iris,hue='species',vars=['sepal_width','petal_width'])
+					g.map_diag(sns.histplot)
+					g.map_upper(sns.kdeplot)
+					g.map_lower(sns.scatterplot)
+					
+			JointGrid Vs Jointplot
+			
+				sns.jointplot(data=tips,x='total_bill',y='tip',kind='hist',hue='sex')
+				
+				g = sns.JointGrid(data=tips,x='total_bill',y='tip')
+				g.plot(sns.kdeplot,sns.violinplot)
+				
+			Utility Functions
+			
+				# get dataset names
+					sns.get_dataset_names()
+					
+				# load dataset
+					sns.load_dataset('planets')
+					
+Data Analysis Process:
+		
+		Data analysis is a systematic process of inspecting, cleaning, transforming, and modeling data to extract useful information and draw conclusions. The data analysis process typically involves several key steps:
+
+		1. **Define the Problem or Research Question**: Clearly outline the objectives of the analysis and what insights you hope to gain from the data.
+
+		2. **Data Collection**: Gather the relevant data from various sources, which may include databases, surveys, experiments, or external datasets.
+
+		3. **Data Cleaning**: This step involves preprocessing the data to handle missing values, outliers, inconsistencies, and other errors. Cleaning ensures that the data is accurate and ready for analysis.
+
+		4. **Exploratory Data Analysis (EDA)**: Explore the dataset using statistical summaries, visualizations, and other techniques to understand its structure, patterns, and relationships between variables. EDA helps in formulating hypotheses and identifying potential insights.
+
+		5. **Data Transformation and Feature Engineering**: Transform the data into a suitable format for analysis and create new features or variables that may enhance the predictive power of models. This step may include normalization, encoding categorical variables, or generating new variables based on existing ones.
+
+		6. **Modeling**: Apply appropriate statistical or machine learning techniques to analyze the data and make predictions or draw conclusions. This step may involve regression, classification, clustering, or other modeling approaches depending on the nature of the problem.
+
+		7. **Evaluation**: Assess the performance of the models using metrics relevant to the problem at hand. This step helps determine how well the models generalize to new data and whether they meet the objectives of the analysis.
+
+		8. **Interpretation and Communication**: Interpret the results of the analysis in the context of the original problem and communicate findings to stakeholders through reports, visualizations, or presentations. Effective communication is essential for translating insights into actionable recommendations.
+
+		9. **Iterative Process**: Data analysis is often an iterative process, where steps may be revisited or refined based on new insights or feedback from stakeholders. Continuous refinement helps ensure that the analysis remains relevant and valuable.
+
+		By following these steps, analysts can systematically analyze data to uncover meaningful insights and inform decision-making processes.
+		
+		In simple words : Data Analysis is the process of inspecting, cleansing, transforming and modeling data with the goal of discovering useful information, informing conclusion and supporting decision-making
+		On larger view, there are below steps involve ( Note : these can be done in any order base on requirement):
+			
+			Gathering Data:
+				There are various ways in which we may receive data as follows,
+					.csv files
+					API : Data from apps
+					Web scrapping : Data from different websites
+					Database
+					
+			Assessing Data:
+				We should always ask below points after loading data:
+					1. Finding the number of rows and columns(shape)
+					2. Data types of various columns(info())
+					3. Checking the missing values(info())
+					4. Check for duplicate data (is_unique)
+					5. Memory occupied by the datset (info)
+					6. High level mathematical overview of data (describe)
+					
+			Cleaning Data:
+				We should run below points:
+					1. Missing Data (e.g. mean)
+					2. Removing duplicate data (drop_duplicate)
+					3. Incorrect data types (astype)
+					
+					
+			Exploring Data:
+				1. Finding correlation and Covariance
+				2. Doing univariate and multivariate analysis
+				3. Plotting graphs
+				
+			Augmenting Data ( Feature Engineering ):
+				1. Removing outliers
+				2. Merging DataFrames
+				3. Adding new columns if required
+				
+			Drawing conclusion:
+				1. Machine learning
+				2. Inferential statistics
+				3. Descriptive statistics
+				
+			Communicating results:
+				1. In person
+				2. Reports
+				3. PPts/ Slide decks
+				4. Blog post
+			
+		Different ways to import data:
+			
+			.csv/ .tsv/ text files:
+			
+				1. Importing pandas
+					import pandas as pd
+					
+				2. Opening a local csv file
+				
+					df = pd.read_csv('aug_train.csv')
+					df
+					
+				3. Opening a csv file from an URL
+				
+					import requests
+					from io import StringIO
+
+					url = "https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv"
+					headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0"}
+					req = requests.get(url, headers=headers)
+					data = StringIO(req.text)
+
+					pd.read_csv(data)
+					
+				4. Sep Parameter : If we have files with different extensions then we explicitly add sep parameter which specifies how the values are placed inside file. 
+									For .csv( comma seperate values) its sep=',' By default
+									for .tsv( tab seperated values) its sep='\t'
+									for text please open and see how values are seperated.
+					pd.read_csv('movie_titles_metadata.tsv',sep='\t',names=['sno','name','release_year','rating','votes','genres']) names: if header not given to columns, we can add by this.
+					
+				5. Index_col parameter : Can explicitly define one column as index
+				
+					pd.read_csv('aug_train.csv',index_col='enrollee_id')
+					
+				6. Header parameter : if first row is heading of each column we use below to explicitly update 1st row into header.
+				
+					pd.read_csv('test.csv',header=1)
+					
+				7. use_cols parameter : if we need only some columns from file.
+				
+					pd.read_csv('aug_train.csv',usecols=['enrollee_id','gender','education_level'])
+					
+				8. Squeeze parameters : if we need only 1 column from file. it will create a series.
+				
+					pd.read_csv('aug_train.csv',usecols=['gender'],squeeze=True)
+					
+				9. Skiprows/nrows Parameter : We can skip rows
+				
+					pd.read_csv('aug_train.csv',nrows=100)
+					
+				10. Encoding parameter : almost every file is UTF-8 encoded, but if you get encoding error while loading, option 1: please convert that file to UTF-8 option 2: if you know what is its encoding then simply add below
+				
+					pd.read_csv('zomato.csv',encoding='latin-1')
+					
+				11. Skip bad lines : if we have some line error while loading file, use below it will skip rows which has error.
+				
+					pd.read_csv('BX-Books.csv', sep=';', encoding="latin-1",on_bad_lines=False)
+					
+				12. dtypes parameter : we can change type of columns
+				
+					pd.read_csv('aug_train.csv',dtype={'target':int}).info()
+					
+				13. Handling Dates : we can change type of column to date.
+				
+					pd.read_csv('IPL Matches 2008-2020.csv',parse_dates=['date']).info()
+					
+				14. Convertors : if there are some large words which are repitating, we can change it to smaller one
+				
+					def rename(name):
+						if name == "Royal Challengers Bangalore":
+							return "RCB"
+						else:
+							return name
+					pd.read_csv('IPL Matches 2008-2020.csv',converters={'team1':rename})
+					
+				15. na_values parameter : If in file, non value is representated by any other except NaN then use this.
+				
+					pd.read_csv('aug_train.csv',na_values=['Male',])
+					
+				16. Loading a huge dataset in chunks : if there is very large dataset, use below and apply function in for loop.
+				
+					dfs = pd.read_csv('aug_train.csv',chunksize=5000)
+					for chunks in dfs:
+						print(chunk.shape)
+						
+			Excel format:
+				pd.read_excel('xyz.xlsx')
+				
+				if need to acces other sheets in excel:
+					pd.read_excel('xyz.xlsx', sheet_name='Sheet_name_2')
+					
+				Some of the parameters are similar to .csv parameters. Please see documentation.
+				
+			.json file:
+				pd.read_json('xyz.json')
+				
+				for loading online:
+					pd.read_json('http....xyz')
+					
+			SQL file:
+			
+			Two ways :
+			1.
+				!pip install mysql.connector
+				
+				import mysql.connector
+				import pandas as pd
+				
+				conn = mysql.connector.Connect(host='localhost', user='root', password='', database='world')
+				
+				df = pd.read_sql_query("SELECT * FROM city", conn)
+				df
+				
+			2. Use this
+				import pymysql
+
+				from sqlalchemy import create_engine
+
+				engine = create_engine("mysql+pymysql://root:@localhost/world")
+
+				df = pd.read_sql_query("SELECT * FROM city WHERE CountryCode LIKE 'USA'", con=engine)
+
+				df
+				
+		Different ways to export data:
+
+			to_csv function to export in csv files:
+			
+				df.to_csv('filename.csv') it will save the csv file with filename given in brackets to same location. 
+				
+				df.to_csv('filename.csv', index=False) By default it will be adding index. If you don't need use this.
+				
+			to_excel function:
+			
+				df.to_excel('output.xlsx') 
+				
+				to export in sheet 1 in excel:
+					df.to_excel('output.xlsx', sheet_name='batsman')
+				to export multiple dataframes in multiple sheets:
+					with pd.ExcelWriter('output.xlsx') as writer:
+						df1.to_excel(writer, sheet_name='sheet1')
+						df2.to_excel(writer, sheet_name='sheet2')
+						
+			to_html function:
+			
+				df.to_html('filename.html')
+				
+			to_json function:
+
+				df.to_json('filename.json')
+				
+			to_sql function:
+			
+				Fisrt create database in Xamp
+				
+				import pymysql
+
+				from sqlalchemy import create_engine
+
+				engine = create_engine("mysql+pymysql://root:@localhost/world")
+				//{root}:{password}@{url}/{database}
+				df.to_sql('ipl', con=engine, if_exits = 'append')
+				
+		Gathering data through API:
+			import pandas as pd
+			import requests
+			
+			response = requests.get('https://api.themoviedb.org/3/movie/top_rated?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US&page=1')
+			temp_df = pd.DataFrame(response.json()['results'])[['id','title','overview','release_date','popularity','vote_average','vote_count']]
+			
+		Gathering data through Web scrapping:
+			import pandas as pd
+			import requests
+			from bs4 import BeautifulSoup
+			import numpy as np
+			
+		if response code is 403
+			headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win 64 ; x64) Apple WeKit /537.36(KHTML , like Gecko) Chrome/80.0.3987.162 Safari/537.36'} -requests.get('url',headers=headers).text	
+			
+		webpage=requests.get('https://www.ambitionbox.com/list-of-companies?page=1').text
+		soup=BeautifulSoup(webpage,'lxml')
+			#print(soup.prettify())
+		TO FIND OUT NAMES OF THE COMPANIES:
+			for i in soup.find_all('h2'):
+				print(i.text.strip())
+		creating dataframe for all the pages:
+		
+				
+				final=pd.DataFrame()
+				for j in range(1,1001):
+				  webpage=requests.get('https://www.ambitionbox.com/list-of-companies?page={}'.format(j)).text
+				  soup=BeautifulSoup(webpage,'lxml')
+				  company=soup.find_all('div',class_='company-content-wrapper')
+				  name=[]
+				  rating=[]
+				  reviews=[]
+				  ctype=[]
+				  hq=[]
+				  how_old=[]
+				  no_of_employee=[]
+
+				  for i in company:
+
+					try:
+					   name.append(i.find('h2').text.strip())
+					except:
+					   name.append(np.nan)
+
+					try:
+					   rating.append(i.find('p',class_='rating').text.strip())
+					except:
+					   rating.append(np.nan)
+				   
+					try:
+
+					  reviews.append(i.find('a' , class_='review-count').text.strip())
+					except:
+					  reviews.append(np.nan)
+
+					try:
+
+					  ctype.append(i.find_all('p',class_='infoEntity')[0].text.strip())
+					except:
+					  ctype.append(np.nan)
+					try:
+
+					  hq.append(i.find_all('p',class_='infoEntity')[1].text.strip())
+					except:
+					  hq.append(np.nan)
+					
+					try:
+
+					  how_old.append(i.find_all('p',class_='infoEntity')[2].text.strip())
+					except:
+					  how_old.append(np.nan)
+					try:
+					  no_of_employee.append(i.find_all('p',class_='infoEntity')[3].text.strip())
+					except:
+					  no_of_employee.append(np.nan)
+					
+
+				  df=pd.DataFrame({'name':name,
+					'rating':rating,
+					'reviews':reviews,
+					'company_type':ctype,
+					'Head_Quarters':hq,
+					'Company_Age':how_old,
+					'No_of_Employee':no_of_employee,
+					})
+				  
+				  final=pd.concat([df,final],ignore_index=True)
+
+
+		Data Accessing:
+			In this step, the data is to be understood more deeply. Before implementing methods to clean it, you will definitely need to have a better idea about what the data is about.
+			
+			Types of Unclean Data:	There are 2 kinds of unclean data
+			
+			1.	Dirty Data (Data with Quality issues): Dirty data, also known as low quality data. Low quality data has content issues.
+
+					Duplicated data
+					Missing Data
+					Corrupt Data
+					Inaccurate Data
+					
+			2.	Messy Data (Data with tidiness issues): Messy data, also known as untidy data. Untidy data has structural issues.Tidy data has the following properties:
+
+					Each variable forms a column
+					Each observation forms a row
+					Each observational unit forms a table
+			Some professional steps which should be followed for better insights:
+			
+				1. Write a summary for your data
+				2. Write Column descriptions
+				3. Add any additional information
+				
+			Types of Assessment: There are 2 types of assessment styles
+
+				Manual - Looking through the data manually in google sheets
+				Programmatic - By using pandas functions such as info(), describe() or sample()
+				
+			Steps in Assessment: There are 2 steps involved in Assessment
+
+				Discover
+				Document
+				
+			Automatic Assessment: Programmatic assessment involves,
+				head and tail
+				sample
+				info
+				isnull
+				duplicated
+				describe
+				
+			Note - Assessing Data is an Iterative Process
+			
+			Data Quality Dimensions:
+			
+				Completeness -> is data missing?
+				Validity -> is data invalid -> negative height -> duplicate patient id
+				Accuracy -> data is valid but not accurate -> weight -> 1kg
+				Consistency -> both valid and accurate but written differently -> New Youk and NY
+				
+			Order of severity:
+			
+				Completeness <- Validity <- Accuracy <- Consistency
+
+			Data Cleaning Order:
+			
+				Quality -> Completeness
+				Tidiness
+				Quality -> Validity
+				Quality -> Accuracy
+				Quality -> Consistency
+				
+			Steps involved in Data cleaning:
+			
+				Define
+				Code
+				Test
+				
+			Note: Always make sure to create a copy of your pandas dataframe before you start the cleaning process
+			
+		EDA ( Exploratory Data Analysis ):
+			
+			Why do EDA:
+			
+				Model building
+				Analysis and reporting
+				Validate assumptions
+				Handling missing values
+				feature engineering
+				detecting outliers
+			# Remember it is an iterative process
+			
+			Column Types:
+			
+				Numerical - Age,Fare,PassengerId
+				Categorical - Survived, Pclass, Sex, SibSp, Parch,Embarked
+				Mixed - Name, Ticket, Cabin
+				
+			Univariate Analysis: Univariate analysis focuses on analyzing each feature in the dataset independently.
+	
+				Distribution analysis: The distribution of each feature is examined to identify its shape, central tendency, and dispersion.
+				Identifying potential issues: Univariate analysis helps in identifying potential problems with the data such as outliers, skewness, and missing values
+
+				The shape of a data distribution refers to its overall pattern or form as it is represented on a graph. Some common shapes of data distributions include:
+
+					Normal Distribution: A symmetrical and bell-shaped distribution where the mean, median, and mode are equal and the majority of the data falls in the middle of the distribution with gradually decreasing frequencies towards the tails.
+					Skewed Distribution: A distribution that is not symmetrical, with one tail being longer than the other. It can be either positively skewed (right-skewed) or negatively skewed (left-skewed).
+					Bimodal Distribution: A distribution with two peaks or modes.
+					Uniform Distribution: A distribution where all values have an equal chance of occurring.
+
+				The shape of the data distribution is important in identifying the presence of outliers, skewness, and the type of statistical tests and models that can be used for further analysis.
+
+				Dispersion is a statistical term used to describe the spread or variability of a set of data. It measures how far the values in a data set are spread out from the central tendency (mean, median, or mode) of the data.
+					There are several measures of dispersion, including:
+
+					Range: The difference between the largest and smallest values in a data set.
+					Variance: The average of the squared deviations of each value from the mean of the data set.
+					Standard Deviation: The square root of the variance. It provides a measure of the spread of the data that is in the same units as the original data.
+					Interquartile range (IQR): The range between the first quartile (25th percentile) and the third quartile (75th percentile) of the data.
+
+				Dispersion helps to describe the spread of the data, which can help to identify the presence of outliers and skewness in the data.
+
+				Steps of doing Univariate Analysis on Numerical columns:
+				
+					Descriptive Statistics: Compute basic summary statistics for the column, such as mean, median, mode, standard deviation, range, and quartiles. These statistics give a general understanding of the distribution of the data and can help identify skewness or outliers.
+					Visualizations: Create visualizations to explore the distribution of the data. Some common visualizations for numerical data include histograms, box plots, and density plots. These visualizations provide a visual representation of the distribution of the data and can help identify skewness an outliers.
+					Identifying Outliers: Identify and examine any outliers in the data. Outliers can be identified using visualizations. It is important to determine whether the outliers are due to measurement errors, data entry errors, or legitimate differences in the data, and to decide whether to include or exclude them from the analysis.
+					Skewness: Check for skewness in the data and consider transforming the data or using robust statistical methods that are less sensitive to skewness, if necessary.
+					Conclusion: Summarize the findings of the EDA and make decisions about how to proceed with further analysis.
+					
+				Steps of doing Univariate Analysis on Categorical columns:
+				
+					Descriptive Statistics: Compute the frequency distribution of the categories in the column. This will give a general understanding of the distribution of the categories and their relative frequencies.
+					Visualizations: Create visualizations to explore the distribution of the categories. Some common visualizations for categorical data include count plots and pie charts. These visualizations provide a visual representation of the distribution of the categories and can help identify any patterns or anomalies in the data.
+					Missing Values: Check for missing values in the data and decide how to handle them. Missing values can be imputed or excluded from the analysis, depending on the research question and the data set.
+					Conclusion: Summarize the findings of the EDA and make decisions about how to proceed with further analysis.
+					
+			Steps of doing Bivariate Analysis:
+			
+			Select 2 cols
+			Understand type of relationship
+
+			Numerical - Numerical
+				a. You can plot graphs like scatterplot(regression plots), 2D histplot, 2D KDEplots
+				b. Check correlation coefficent to check linear relationship
+			Numerical - Categorical - create visualizations that compare the distribution of the numerical data across different categories of the categorical data.
+				a. You can plot graphs like barplot, boxplot, kdeplot violinplot even scatterplots
+			Categorical - Categorical
+				a. You can create cross-tabulations or contingency tables that show the distribution of values in one categorical column, grouped by the values in the other categorical column.
+				b. You can plots like heatmap, stacked barplots, treemaps
+			Write your conclusions
